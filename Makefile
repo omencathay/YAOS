@@ -5,9 +5,23 @@
 #This is free sofware
 #
 
+TOPDIR:=${CURDIR}
+export TOPDIR
 
-yaos:
-	gcc -o main main.c
+export PATH:=$(TOPDIR)/build/toolchain-$(TARGET)/bin:$(PATH)
+
+include toolchain/Makefile
+include src/Makefile
 
 clean:
-	rm -rf main
+	rm -rf $(BUILD_DIR) $(OUTPUT_DIR)
+
+dirclean: clean
+	rm -rf $(TOOLCHAIN_DIR)
+
+world:
+	#todo compile
+
+.PHONY: clean dirclean world
+
+
